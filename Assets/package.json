@@ -1,0 +1,23 @@
+{
+  "name": "dev.upm-packages.cafu.core",
+  "displayName": "CAFU Core",
+  "version": "0.0.1",
+  "unity": "2019.2",
+  "description": "Core modules of Clean Architecture For Unity",
+  "author": {
+    "name": "Tetsuya Mori",
+    "url": "https://me.monry.dev/",
+    "email": "monry84@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": [],
+  "category": "",
+  "dependencies": {
+    "jp.cysharp.unitask": "1.0.0",
+    "com.stevevermeulen.extenject": "9.1.0-5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/upm-packages/CAFU.Core"
+  }
+}
