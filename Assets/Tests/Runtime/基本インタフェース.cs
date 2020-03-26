@@ -11,7 +11,7 @@ namespace CAFU.Core.Tests.Runtime
     public class 基本インタフェース : ZenjectIntegrationTestFixture
     {
         [UnityTest]
-        public IEnumerator IInitializeNotifiable_Initializeが呼ばれる() => UniTask.ToCoroutine(async () =>
+        public IEnumerator IInitializeNotifiable_Notifyが呼ばれる() => UniTask.ToCoroutine(async () =>
         {
             InstallBasicInterfaceBindings<IInitializeNotifiable>();
             await UniTask.DelayFrame(1);
@@ -20,7 +20,7 @@ namespace CAFU.Core.Tests.Runtime
         });
 
         [UnityTest]
-        public IEnumerator IAsyncInitializeNotifiable_InitializeAsyncが呼ばれる() => UniTask.ToCoroutine(async () =>
+        public IEnumerator IAsyncInitializeNotifiable_NotifyAsyncが呼ばれる() => UniTask.ToCoroutine(async () =>
         {
             InstallBasicInterfaceBindings<IAsyncInitializeNotifiable>();
             await UniTask.DelayFrame(1);
@@ -29,7 +29,7 @@ namespace CAFU.Core.Tests.Runtime
         });
 
         [UnityTest]
-        public IEnumerator IFinalizeNotifiable_Finalizeが呼ばれる() => UniTask.ToCoroutine(async () =>
+        public IEnumerator IFinalizeNotifiable_Notifyが呼ばれる() => UniTask.ToCoroutine(async () =>
         {
             InstallBasicInterfaceBindings<IFinalizeNotifiable>();
             Container.ResolveAll<IDisposable>().First(x => x.GetType() == typeof(TestController)).Dispose();
@@ -39,7 +39,7 @@ namespace CAFU.Core.Tests.Runtime
         });
 
         [UnityTest]
-        public IEnumerator IAsyncFinalizeNotifiable_FinalizeAsyncが呼ばれる() => UniTask.ToCoroutine(async () =>
+        public IEnumerator IAsyncFinalizeNotifiable_NotifyAsyncが呼ばれる() => UniTask.ToCoroutine(async () =>
         {
             InstallBasicInterfaceBindings<IAsyncFinalizeNotifiable>();
             Container.ResolveAll<IDisposable>().First(x => x.GetType() == typeof(TestController)).Dispose();
