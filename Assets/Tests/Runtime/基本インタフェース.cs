@@ -25,7 +25,7 @@ namespace CAFU.Core.Tests.Runtime
             InstallBasicInterfaceBindings<IAsyncInitializeNotifiable>();
             await UniTask.DelayFrame(1);
             var mock = Container.Resolve<IAsyncInitializeNotifiable>();
-            mock.ReceivedWithAnyArgs(1).NotifyAsync();
+            await mock.ReceivedWithAnyArgs(1).NotifyAsync();
         });
 
         [UnityTest]
@@ -45,7 +45,7 @@ namespace CAFU.Core.Tests.Runtime
             Container.ResolveAll<IDisposable>().First(x => x.GetType() == typeof(TestController)).Dispose();
             await UniTask.DelayFrame(1);
             var mock = Container.Resolve<IAsyncFinalizeNotifiable>();
-            mock.ReceivedWithAnyArgs(1).NotifyAsync();
+            await mock.ReceivedWithAnyArgs(1).NotifyAsync();
         });
 
         private void InstallBasicInterfaceBindings<TInterface>() where TInterface : class
