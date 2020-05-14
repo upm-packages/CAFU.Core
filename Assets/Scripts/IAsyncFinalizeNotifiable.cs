@@ -5,6 +5,6 @@ namespace CAFU.Core
 {
     public interface IAsyncFinalizeNotifiable
     {
-        UniTask NotifyAsync(CancellationToken cancellationToken = default);
+        UniTask OnFinalizeAsync(CancellationToken cancellationToken = default);
     }
 }

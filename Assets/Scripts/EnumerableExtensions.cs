@@ -26,7 +26,7 @@ namespace CAFU.Core
 
             foreach (var initializeNotifiable in initializeNotifiables)
             {
-                initializeNotifiable.Notify();
+                initializeNotifiable.OnInitialize();
             }
         }
 
@@ -45,14 +45,14 @@ namespace CAFU.Core
             cancellationToken.ThrowIfCancellationRequested();
             if (runInParallel)
             {
-                await UniTask.WhenAll(asyncInitializeNotifiables.Select(x => x.NotifyAsync(cancellationToken)));
+                await UniTask.WhenAll(asyncInitializeNotifiables.Select(x => x.OnInitializeAsync(cancellationToken)));
             }
             else
             {
                 foreach (var asyncInitializeNotifiable in asyncInitializeNotifiables)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
-                    await asyncInitializeNotifiable.NotifyAsync(cancellationToken);
+                    await asyncInitializeNotifiable.OnInitializeAsync(cancellationToken);
                 }
             }
         }
@@ -66,7 +66,7 @@ namespace CAFU.Core
 
             foreach (var finalizeNotifiable in finalizeNotifiables)
             {
-                finalizeNotifiable.Notify();
+                finalizeNotifiable.OnFinalize();
             }
         }
 
@@ -85,14 +85,14 @@ namespace CAFU.Core
             cancellationToken.ThrowIfCancellationRequested();
             if (runInParallel)
             {
-                await UniTask.WhenAll(asyncFinalizeNotifiables.Select(x => x.NotifyAsync(cancellationToken)));
+                await UniTask.WhenAll(asyncFinalizeNotifiables.Select(x => x.OnFinalizeAsync(cancellationToken)));
             }
             else
             {
                 foreach (var asyncFinalizeNotifiable in asyncFinalizeNotifiables)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
-                    await asyncFinalizeNotifiable.NotifyAsync(cancellationToken);
+                    await asyncFinalizeNotifiable.OnFinalizeAsync(cancellationToken);
                 }
             }
         }
