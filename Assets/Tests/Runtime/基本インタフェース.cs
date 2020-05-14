@@ -16,7 +16,7 @@ namespace CAFU.Core.Tests.Runtime
             InstallBasicInterfaceBindings<IInitializeNotifiable>();
             await UniTask.DelayFrame(1);
             var mock = Container.Resolve<IInitializeNotifiable>();
-            mock.Received(1).Notify();
+            mock.Received(1).OnInitialize();
         });
 
         [UnityTest]
@@ -25,7 +25,7 @@ namespace CAFU.Core.Tests.Runtime
             InstallBasicInterfaceBindings<IAsyncInitializeNotifiable>();
             await UniTask.DelayFrame(1);
             var mock = Container.Resolve<IAsyncInitializeNotifiable>();
-            await mock.ReceivedWithAnyArgs(1).NotifyAsync();
+            await mock.ReceivedWithAnyArgs(1).OnInitializeAsync();
         });
 
         [UnityTest]
@@ -35,7 +35,7 @@ namespace CAFU.Core.Tests.Runtime
             Container.ResolveAll<IDisposable>().First(x => x.GetType() == typeof(TestController)).Dispose();
             await UniTask.DelayFrame(1);
             var mock = Container.Resolve<IFinalizeNotifiable>();
-            mock.Received(1).Notify();
+            mock.Received(1).OnFinalize();
         });
 
         [UnityTest]
@@ -45,7 +45,7 @@ namespace CAFU.Core.Tests.Runtime
             Container.ResolveAll<IDisposable>().First(x => x.GetType() == typeof(TestController)).Dispose();
             await UniTask.DelayFrame(1);
             var mock = Container.Resolve<IAsyncFinalizeNotifiable>();
-            await mock.ReceivedWithAnyArgs(1).NotifyAsync();
+            await mock.ReceivedWithAnyArgs(1).OnFinalizeAsync();
         });
 
         private void InstallBasicInterfaceBindings<TInterface>() where TInterface : class
