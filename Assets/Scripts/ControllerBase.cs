@@ -20,7 +20,7 @@ namespace CAFU.Core
         [InjectOptional] private IEnumerable<IFinalizeNotifiable> FinalizeNotifiables { get; }
         [InjectOptional] private IEnumerable<IAsyncFinalizeNotifiable> AsyncFinalizeNotifiables { get; }
 
-        private bool IsDisposed { get; set; } = false;
+        private bool isDisposed = false;
 
         protected virtual void OnInitialize()
         {
@@ -73,10 +73,12 @@ namespace CAFU.Core
 
         void IInitializable.Initialize()
         {
+            // ReSharper disable once ConvertIfStatementToNullCoalescingAssignment
             if (CancellationTokenSource == default)
             {
                 CancellationTokenSource = new CancellationTokenSource();
             }
+
             OnInitialize();
             OnInitializeAsync(CancellationTokenSource.Token)
                 .Forget(OnError);
@@ -84,12 +86,12 @@ namespace CAFU.Core
 
         void IDisposable.Dispose()
         {
-            if (IsDisposed)
+            if (isDisposed)
             {
                 return;
             }
 
-            IsDisposed = true;
+            isDisposed = true;
             OnFinalize();
             OnFinalizeAsync(CancellationTokenSource.Token)
                 .ContinueWith(() => CancellationTokenSource.Dispose())
