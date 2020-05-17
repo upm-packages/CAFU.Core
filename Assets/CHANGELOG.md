@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.0-preview.5] - 2020-05-17
+
+Improve base classes
+
+### Changes
+
+- #5 ControllerBase が他レイヤ（UseCase）の初期化などを担うと処理が追いにくくなるので廃止
+
 ## [0.1.0-preview.4] - 2020-05-16
 
 Add RepositoryBase
