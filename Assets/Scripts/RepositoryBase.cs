@@ -1,59 +1,35 @@
-using System;
 using System.Threading;
-using JetBrains.Annotations;
 using UniRx.Async;
-using UnityEngine;
-using Zenject;
 
 namespace CAFU.Core
 {
-    [PublicAPI]
-    public abstract class RepositoryBase : IInitializable, IDisposable, IInitializeAwaitable
+    public abstract class RepositoryBase : Base, IAsyncInitializeNotifiable, IAsyncFinalizeNotifiable, IInitializeAwaitable, ICancellationTokenLinkable
     {
-        [InjectOptional] protected CancellationTokenSource CancellationTokenSource { get; set; }
-
-        public abstract UniTask LoadAsync(CancellationToken cancellationToken = default);
-        public abstract UniTask SaveAsync(CancellationToken cancellationToken = default);
-
         private bool isInitialized = false;
-        private bool isDisposed = false;
 
         public virtual async UniTask WaitUntilInitialized(CancellationToken cancellationToken = default)
         {
             await UniTask.WaitWhile(() => !isInitialized, cancellationToken: cancellationToken);
         }
 
-        void IInitializable.Initialize()
+        public virtual async UniTask OnInitializeAsync(CancellationToken cancellationToken = default)
         {
-            // ReSharper disable once ConvertIfStatementToNullCoalescingAssignment
-            if (CancellationTokenSource == default)
+            // ReSharper disable once SuspiciousTypeConversion.Global
+            if (this is IAsyncLoadableRepository asyncLoadableRepository)
             {
-                CancellationTokenSource = new CancellationTokenSource();
+                await asyncLoadableRepository.LoadAsync(GetCancellationToken());
             }
 
-            LoadAsync(CancellationTokenSource.Token)
-                .ContinueWith(() => isInitialized = true)
-                .Forget(OnError);
+            isInitialized = true;
         }
 
-        void IDisposable.Dispose()
+        public virtual async UniTask OnFinalizeAsync(CancellationToken cancellationToken = default)
         {
-            if (isDisposed)
+            // ReSharper disable once SuspiciousTypeConversion.Global
+            if (this is IAsyncSavableRepository asyncSavableRepository)
             {
-                return;
+                await asyncSavableRepository.SaveAsync(GetCancellationToken());
             }
-
-            isDisposed = true;
-            SaveAsync(CancellationTokenSource.Token)
-                .ContinueWith(() => CancellationTokenSource.Cancel())
-                .Forget(OnError);
-        }
-
-        protected virtual void OnError(Exception exception)
-        {
-            Debug.LogException(exception);
-            CancellationTokenSource.Cancel();
-            throw exception;
         }
     }
 }
