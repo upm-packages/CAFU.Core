@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.0-preview.6] - 2020-05-18
+
+Add sync repository interfaces
+
+* Add sync repository interfaces
+
 ## [0.1.0-preview.5] - 2020-05-17
 
 Improve base classes
