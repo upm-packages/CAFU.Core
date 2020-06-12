@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.0-preview.7] - 2020-06-12
+
+Rename interfaces and methods to automatic Load/Save repository
+
+### Changes
+
+- Add `Automatic` keyword into interface name and add `Automatically` keyword into method name. #7 
+
 ## [1.0.0-preview.6] - 2020-05-18
 
 Add sync repository interfaces
