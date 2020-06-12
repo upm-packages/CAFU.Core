@@ -15,9 +15,9 @@ namespace CAFU.Core
         public virtual async UniTask OnInitializeAsync(CancellationToken cancellationToken = default)
         {
             // ReSharper disable once SuspiciousTypeConversion.Global
-            if (this is IAsyncLoadableRepository asyncLoadableRepository)
+            if (this is IAsyncAutomaticLoadableRepository asyncLoadableRepository)
             {
-                await asyncLoadableRepository.LoadAsync(GetCancellationToken());
+                await asyncLoadableRepository.LoadAutomaticallyAsync(GetCancellationToken());
             }
 
             isInitialized = true;
@@ -26,9 +26,9 @@ namespace CAFU.Core
         public virtual async UniTask OnFinalizeAsync(CancellationToken cancellationToken = default)
         {
             // ReSharper disable once SuspiciousTypeConversion.Global
-            if (this is IAsyncSavableRepository asyncSavableRepository)
+            if (this is IAsyncAutomaticSavableRepository asyncSavableRepository)
             {
-                await asyncSavableRepository.SaveAsync(GetCancellationToken());
+                await asyncSavableRepository.SaveAutomaticallyAsync(GetCancellationToken());
             }
         }
     }
