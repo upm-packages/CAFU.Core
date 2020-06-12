@@ -5,6 +5,6 @@ namespace CAFU.Core
 {
     public interface IAsyncAutomaticSavableRepository
     {
-        UniTask SaveAsync(CancellationToken cancellationToken = default);
+        UniTask SaveAutomaticallyAsync(CancellationToken cancellationToken = default);
     }
 }

@@ -17,7 +17,7 @@ namespace CAFU.Core
             // ReSharper disable once SuspiciousTypeConversion.Global
             if (this is IAsyncAutomaticLoadableRepository asyncLoadableRepository)
             {
-                await asyncLoadableRepository.LoadAsync(GetCancellationToken());
+                await asyncLoadableRepository.LoadAutomaticallyAsync(GetCancellationToken());
             }
 
             isInitialized = true;
@@ -28,7 +28,7 @@ namespace CAFU.Core
             // ReSharper disable once SuspiciousTypeConversion.Global
             if (this is IAsyncAutomaticSavableRepository asyncSavableRepository)
             {
-                await asyncSavableRepository.SaveAsync(GetCancellationToken());
+                await asyncSavableRepository.SaveAutomaticallyAsync(GetCancellationToken());
             }
         }
     }
