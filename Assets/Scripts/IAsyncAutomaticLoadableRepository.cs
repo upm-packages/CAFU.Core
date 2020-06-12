@@ -1,9 +1,9 @@
-using System.Threading;
+﻿using System.Threading;
 using UniRx.Async;
 
 namespace CAFU.Core
 {
-    public interface IAsyncLoadableRepository
+    public interface IAsyncAutomaticLoadableRepository
     {
         UniTask LoadAsync(CancellationToken cancellationToken = default);
     }

@@ -3,7 +3,7 @@ using UniRx.Async;
 
 namespace CAFU.Core
 {
-    public interface IAsyncSavableRepository
+    public interface IAsyncAutomaticSavableRepository
     {
         UniTask SaveAsync(CancellationToken cancellationToken = default);
     }
