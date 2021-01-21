@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.0-preview.8] - 2021-01-21
+
+Reference UniRx on GitHub instead of Self-hosted registry
+
+### Changes
+
+- Reference UniRx on GitHub instead of Self-hosted registry
+- Upgrade UniTask to v2
+
 ## [1.0.0-preview.7] - 2020-06-12
 
 Rename interfaces and methods to automatic Load/Save repository
