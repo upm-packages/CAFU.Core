@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
-using UniRx.Async;
+using Cysharp.Threading.Tasks;
 using Zenject;
 
 namespace CAFU.Core
